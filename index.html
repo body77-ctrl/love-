@@ -19,7 +19,6 @@ align-items:center;
 text-align:center;
 color:white;
 position:relative;
-transition:1s;
 }
 
 body::before{
@@ -36,11 +35,11 @@ pointer-events:none;
 }
 
 button{
-padding:12px 25px;
+padding:12px 20px;
 margin:10px;
 border:none;
 border-radius:25px;
-font-size:18px;
+font-size:16px;
 cursor:pointer;
 transition:0.3s;
 }
@@ -56,18 +55,19 @@ color:white;
 position:fixed;
 left:60%;
 top:60%;
+z-index:10;
 }
 
 #main{
 display:none;
-padding:20px;
+padding:10px;
 }
 
 img{
-width:90%;
-max-width:300px;
+width:80%;
+max-width:230px;
 border-radius:20px;
-margin-top:20px;
+margin-top:10px;
 opacity:0;
 transform:scale(0.6);
 transition:1s;
@@ -75,15 +75,14 @@ box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
 #timer{
-font-size:18px;
-margin-top:15px;
+font-size:14px;
+margin-top:10px;
 }
 
 #message{
-font-size:22px;
-margin-top:30px;
+font-size:18px;
+margin-top:10px;
 font-weight:bold;
-min-height:40px;
 }
 
 .heart, .loveText{
@@ -93,7 +92,7 @@ animation:float 6s linear infinite;
 }
 
 .loveText{
-font-size:18px;
+font-size:14px;
 opacity:0.8;
 }
 
@@ -114,7 +113,7 @@ color:white;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-font-size:30px;
+font-size:24px;
 z-index:999;
 }
 
@@ -124,13 +123,13 @@ z-index:999;
 <body>
 
 <div id="questionBox">
-<h1>Do you like surprises? 😊</h1>
+<h2>Do you like surprises? 😊</h2>
 <button id="yes">Yes ❤️</button>
 <button id="no">No 😅</button>
 </div>
 
 <div id="main">
-<h1>The moment I noticed you...</h1>
+<h2>The moment I noticed you...</h2>
 <div id="timer"></div>
 <img id="photo" src="her.jpg">
 <div id="message"></div>
@@ -149,14 +148,24 @@ let yes=document.getElementById("yes");
 let yesSize=1;
 
 function moveNo(){
-let maxX=window.innerWidth-no.offsetWidth-20;
-let maxY=window.innerHeight-no.offsetHeight-20;
 
-no.style.left=Math.random()*maxX+"px";
-no.style.top=Math.random()*maxY+"px";
+let rect=no.getBoundingClientRect();
 
-yesSize+=0.1;
+let moveX=(Math.random()*60)-30;
+let moveY=(Math.random()*60)-30;
+
+let newX=rect.left+moveX;
+let newY=rect.top+moveY;
+
+newX=Math.max(10, Math.min(newX, window.innerWidth - rect.width - 10));
+newY=Math.max(10, Math.min(newY, window.innerHeight - rect.height - 10));
+
+no.style.left=newX+"px";
+no.style.top=newY+"px";
+
+yesSize+=0.08;
 yes.style.transform="scale("+yesSize+")";
+
 }
 
 no.addEventListener("mouseover",moveNo);
@@ -172,7 +181,6 @@ document.getElementById("main").style.display="block";
 let music=document.getElementById("music");
 music.play();
 
-/* لما الأغنية تخلص */
 music.onended=function(){
 document.getElementById("final").style.display="flex";
 };
@@ -274,8 +282,8 @@ heart.style.position="fixed";
 heart.style.left="50%";
 heart.style.top="50%";
 
-let x=(Math.random()-0.5)*600;
-let y=(Math.random()-0.5)*600;
+let x=(Math.random()-0.5)*250;
+let y=(Math.random()-0.5)*250;
 
 heart.style.transition="1s";
 
